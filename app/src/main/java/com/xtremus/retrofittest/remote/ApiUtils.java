@@ -5,9 +5,7 @@ public class ApiUtils {
 
     private static final String BASE_URL = "http://tsassessors.in/ncckanpur/";
 
-    private ApiUtils() {
 
-    }
 
     public static LoginInterface getLoginService() {
         return RetrofitClient.getClient(BASE_URL).create(LoginInterface.class);

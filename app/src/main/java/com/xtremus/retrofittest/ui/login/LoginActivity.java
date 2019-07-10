@@ -27,11 +27,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 import com.xtremus.retrofittest.R;
 import com.xtremus.retrofittest.data.model.Get;
 import com.xtremus.retrofittest.remote.ApiUtils;
 import com.xtremus.retrofittest.remote.LoginInterface;
 
+import java.io.IOException;
 import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -141,8 +144,8 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                /*loginViewModel.login(usernameEditText.getText().toString(),
+                /*loadingProgressBar.setVisibility(View.VISIBLE);
+                loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());*/
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
@@ -156,11 +159,22 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
             @Override
             public void onResponse(Call<Get> call, Response<Get> response) {
                 showToast("API hit.");
-                if (response.isSuccessful())
+                Log.d(TAG,"Request Code"+ response.code());
+
+
+                if (response.errorBody() != null) {
+                    Log.e(TAG, response.errorBody().toString());
+                }
+
+
+
+                if (response.isSuccessful()) {
                     Log.d(TAG, response.body().toString());
+                    showToast(response.body().getMsg());
+                }
                 else {
                     Log.d(TAG, "No Response");
-                }
+                    }
             }
 
             @Override
