@@ -1,7 +1,3 @@
-
-[![OS](https://www.android.com/)][Android]
-[![Contact](mailto:jayeshmann06@gmail.com)][Email]
-
 # retrofitTest
  Repo for learning Android + Retrofit.
  
